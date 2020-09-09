@@ -22,9 +22,9 @@
 
 ## Write testable code
 
-### Dependency injection
-
 ### Mock and patch
+
+### Dependency injection
 
 ### Exercise 2
 
