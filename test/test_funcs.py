@@ -43,7 +43,7 @@ def test_sqrt():
     assert funcs.calc_square_root(2.) == pytest.approx(1.4142, abs=0.0001)
 
 
-def not_test_badsum_with_fixture(correct_sums):
+def test_badsum_with_fixture(correct_sums):
 
     for a, b, c in correct_sums:
         assert funcs.badsum(a, b) == c, f"{a} and {b} makes {c}!"
