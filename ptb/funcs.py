@@ -4,14 +4,14 @@ from datetime import datetime
 
 import math
 from dataclasses import dataclass
-import shapely
+import shapely.geometry
 import requests
 import psycopg2.extras
 
 
 def badsum(x: int, y: int) -> int:
     # returns the sum of x and y
-    return x
+    return x + y
 
 
 def calc_square_root(x: float) -> float:
@@ -40,11 +40,11 @@ def writefile(integers: List[int], pth: Path):
             f.write(f"{integer}\n")
 
 
-def getexternaldata():
+def getexternaldata(pth: Path):
     
     response = requests.get("http://www.google.nl")
     
-    with open("data.txt") as f:
+    with open(pth, "w") as f:
         f.write(response.text)
 
 
@@ -58,32 +58,6 @@ class Building:
 
 
 def get_buildings(conn: psycopg2.extensions.connection) -> List[Building]:
-
-    with conn.cursor() as cursor:
-        sql = """
-        SELECT bag_building_id, startdate, exterior FROM nl_data.bag_buildings
-        """
-
-        cursor.execute(sql)
-
-        building_data = cursor.fetchall()
-
-    buildings = list()
-
-    for bag_id, startdate, exterior in building_data:
-
-        exterior = shapely.wkb.loads(exterior)
-
-        building = Building(
-            bag_id,
-            exterior,
-            startdate
-        )
-
-        buildings.append(building)
-
-
-def get_buildings_magic(conn: psycopg2.extensions.connection) -> List[Building]:
 
     with conn.cursor() as cursor:
         sql = """

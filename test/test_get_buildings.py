@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 sample_result = [('0088100000137106-1',
   datetime.date(2010, 3, 9),
